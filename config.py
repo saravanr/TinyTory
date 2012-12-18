@@ -2,7 +2,7 @@
 # SQL related
 SQLUSER = 'joy'
 SQLPASSWORD = '1505tinuviel'
-SQLHOST = 'localhost'
+SQLHOST = 'tinytory.com'
 SQLDB = 'tinytory'
 
 # Twitter App credentials

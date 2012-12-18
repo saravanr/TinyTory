@@ -15,7 +15,10 @@ class mydb:
     def query(self, sql, *params):
         try:
             cursor = self.sql_conn.cursor()
-            cursor.execute(sql % params )
+            if (len(params) > 0):
+                cursor.execute(sql % params )
+            else:
+                cursor.execute(sql)
         except (AttributeError, MySQLdb.OperationalError), e:
             print 'Sql exception: ', e
         return cursor   
