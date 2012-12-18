@@ -19,15 +19,22 @@ def json_encode_decimal(obj):
 class data:
     def GET(self):
         db = mydb()
-        start = time()
-        # Return last 60 seconds worth of data
-        start = start - 60
-        cursor = db.query("select * from twitter where tweeted_at > %d", start)
+        user_data = web.input()
+        data_id = int(web.websafe(user_data.data_id))
+        cursor = db.query("select * from twitter where id > %s limit 100", data_id) 
         rows = cursor.fetchall()
 
         db.close()
+        web.header('Content-Type', 'application/json')
+        result = {}
+        for row in rows:
+            index = row[0]
+            result[index] ={}
+            result[index]['s'] = row[2]
+            result[index]['lo'] = row[3]
+            result[index]['la'] = row[4]
+        return json.dumps(result, default=json_encode_decimal)
 
-        return json.dumps(rows, default=json_encode_decimal)
 
 application = web.application(urls, globals()).wsgifunc()
 
