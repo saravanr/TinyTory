@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Diurnal - Your daily journal</title>
+    <title>Tinytory</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -27,8 +27,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-    <script src="polymaps.min.js"></script>
   </head>
 
   <body>
@@ -56,65 +56,37 @@
     <div class="container">
     <div class="rowfluid">
 
-    <script type="javascript">
-    var po = org.polymaps;
-    
-    // Compute noniles.
-    var quantile = pv.Scale.quantile()
-        .quantiles(9)
-        .domain(pv.values(states))
-        .range(0, 8);
-    
-    // Date format.
-    var format = pv.Format.date("%B %e, %Y");
-    
-    var map = po.map()
-        .container(document.getElementById("map").appendChild(po.svg("svg")))
-        .center({lat: 40, lon: -95})
-        .zoomRange([3, 7])
-        .zoom(4)
-        .add(po.interact());
-    
-    map.add(po.image()
-        .url(po.url("http://{S}tile.cloudmade.com"
-        + "/1a1b06b230af4efdbb989ea99e9841af" // http://cloudmade.com/register
-        + "/20760/256/{Z}/{X}/{Y}.png")
-        .hosts(["a.", "b.", "c.", ""])));
-    
-    map.add(po.geoJson()
-        .url("http://polymaps.appspot.com/state/{Z}/{X}/{Y}.json")
-        .on("load", load))
-    
-    map.add(po.compass()
-        .pan("none"));
-    
-    map.container().setAttribute("class", "Blues");
-    
-    function load(e) {
-      for (var i = 0; i < e.features.length; i++) {
-        var feature = e.features[i], d = states[feature.data.id.substring(6)];
-        if (d == undefined) {
-          feature.element.setAttribute("display", "none");
-        } else {
-          feature.element.setAttribute("class", "q" + quantile(d) + "-" + 9);
-          feature.element.appendChild(po.svg("title").appendChild(
-              document.createTextNode(feature.data.properties.name + ": "
-              + format(d).replace(/ [ ]+/, " ")))
-              .parentNode);
-        }
-      }
-    }
+   <script type="text/javascript" src="http://tile.cloudmade.com/wml/latest/web-maps-lite.js"></script>
+   <script type="text/javascript" src="http://developers.cloudmade.com/js-api/examples/sample-points.js"></script>
 
+   <div id="twitter-map" style="width: 600px; height: 400px"></div>
+
+   <script type="text/javascript">
+
+   $.getJSON('http://tinytory.cloudapp.net', function (json) {
+           alert(json.result);
+           });
+    
+
+   var cloudmade = new CM.Tiles.CloudMade.Web({key: '70db7b70f32c4d4592fc1a0006a3be17'});
+   var map = new CM.Map('twitter-map', cloudmade);
+
+   map.setCenter(new CM.LatLng(51.50874, 22.76367), 4);
+
+   var markers = [];
+   for (var i = 0; i < samplePoints.length; i++) {
+       markers.push(new CM.Marker(new CM.LatLng(samplePoints[i][0], samplePoints[i][1])));
+   }
+
+    var clusterer = new CM.MarkerClusterer(map, {clusterRadius: 70});
+    clusterer.addMarkers(markers);
     </script>
-
-   
 
     </div> <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
+    <!-- Placed at the end of the document so the pages load faster  
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>
@@ -127,6 +99,7 @@
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
     <script src="js/bootstrap-typeahead.js"></script>
+    -->
 
   </body>
 </html>

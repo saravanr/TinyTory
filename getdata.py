@@ -58,7 +58,7 @@ def main():
     global db
     db = mydb()
 #    try:
-    measure_mood(1)
+    measure_mood(24)
 
     db.close()
 #    except:
