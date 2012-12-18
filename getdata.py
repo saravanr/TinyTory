@@ -3,21 +3,22 @@
 from mydb import mydb 
 from twitterclient import twitterclient
 from valence import valence
-from time import time
+import time
 from datetime import datetime
 import json
 from dateutil import parser
 
+db = None
 
 '''
     Saves tweet information into database
 '''
 def insertdb(tweet_time, sentiment, longitude, latitude):
-    db = mydb()
-    sql = 'INSERT into twitter(tweeted_at, sentiment, longitude, lattitude) VALUES("%s", "%s", "%s", "%s")'
-    cursor = db.query(sql, tweet_time, sentiment, longitude, latitude)
-    cursor.close()
-    db.close()
+    global db
+    sql = 'INSERT into twitter(tweeted_at, sentiment, longitude, lattitude)\
+           VALUES("%d", "%f", "%f", "%f")'
+    db.query(sql, tweet_time, sentiment, longitude, latitude)
+    db.commit()
 
 '''
     Measures twitter mood for given number of hours
@@ -31,7 +32,7 @@ def measure_mood(max_hours):
     # Estimate number of tweets for 5 minutes
     print "Waiting for " + str(max_hours) + " hours"
 
-    start=time()
+    start=time.time()
     vc = valence()
 
     for line in response:
@@ -44,17 +45,22 @@ def measure_mood(max_hours):
             if(data['coordinates']):
                 # Insert into db
                 print data['user']['screen_name'] + '(' + str(sentiment) + ')'
-                created_at = parser.parse(data['created_at'])
+                created_at = time.mktime(parser.parse(data['created_at'])
+                                 .timetuple())
                 insertdb(created_at, float(sentiment), \
                          float(data['coordinates']['coordinates'][0]),
                          float(data['coordinates']['coordinates'][1]))
-        if(time() - start > 60 * 60 * max_hours):
+        if(time.time() - start > 60 * 60 * max_hours):
             break
     return
 
 def main():
+    global db
+    db = mydb()
 #    try:
     measure_mood(1)
+
+    db.close()
 #    except:
 #        pass
 

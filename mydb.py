@@ -19,10 +19,19 @@ class mydb:
         except (AttributeError, MySQLdb.OperationalError), e:
             print 'Sql exception: ', e
         return cursor   
-
+    
+    def commit(self):
+        try:
+            if self.sql_conn:
+                self.sql_conn.commit()
+        except (AttributeError, MySQLdb.OperationalError), e:
+            print 'Sql exception: ', e
+            raise e   
+                
     def close(self):
         try:
             if self.sql_conn:
+                self.sql_conn.commit()
                 self.sql_conn.close()
         except (AttributeError, MySQLdb.OperationalError), e:
             print 'Sql exception: ', e
