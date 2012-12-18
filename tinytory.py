@@ -335,19 +335,19 @@ def main():
     parser = OptionParser(usage=usage)
     parser.add_option("-q", "--query", 
                       dest="query", type="string",
-                      help="Problem0: Get number of tweets")
+                      help="Get number of tweets")
     parser.add_option("-s", "--sentiment",
                       dest="sentiment", type="string",
-                      help="Problem2: Sentiment for query term")
+                      help="Sentiment for query term")
     parser.add_option("-p","--tweets_per_second",
                       dest="tps", default=False, action="store_true",
-                      help="Problem3: Tweets per second for query term")
+                      help="Tweets per second for query term")
     parser.add_option("-i","--state-sentiment",
                       dest="statesentiment", type="int", 
-                      help="Problem4: Find happy and sad states for the given  number of tweets")
+                      help="Find happy and sad states for the given  number of tweets")
     parser.add_option("-m","--measure_mood",
                       dest="measuremood", type="int",
-                      help="Problem5: Measure mood for given number of hours")
+                      help="Measure mood for given number of hours")
 
     (options, args) = parser.parse_args()
 
