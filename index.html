@@ -45,8 +45,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="https://github.com/saravanr/TinyTory/">Code</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -76,7 +75,7 @@
    {
    var markers = [];
    var timestamp = Math.round(+new Date()/1000)-100*60;
-   var url = 'http://tinytory.cloudapp.net/data?data_id=' + data_id;
+   var url = 'http://febsee.com/data?data_id=' + data_id;
    $.getJSON(url, function (json) {
            $.each(json, function(id, valuearray) {
                    $.each(valuearray, function(key, value) {
