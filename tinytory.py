@@ -11,10 +11,10 @@ import csv
 from datetime import datetime
 
 # App credentials
-access_token_key = "30362328-SJiPXWJJhOqsAgDi9ub7TAxcnkiRaaBnBpsob1xC0"
-access_token_secret = "KUVVur5jpvxRCMZztwCM0E8k9G9byZsFhcvc89frL8"
-consumer_key = "mrr3DkdWp8HkfcS1Z4BNrA"
-consumer_secret = "DKa3mJRcqbLEhnchDEneSgUMdJ3wKIPvozg7ZzJW0fU"
+access_token_key = "xx"
+access_token_secret = "xx"
+consumer_key = "xx"
+consumer_secret = "xx"
 
 ##########
 _debug = 0
